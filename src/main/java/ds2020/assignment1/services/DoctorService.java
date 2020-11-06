@@ -3,6 +3,7 @@ package ds2020.assignment1.services;
 import ds2020.assignment1.controllers.handlers.exceptions.model.ResourceNotFoundException;
 import ds2020.assignment1.dtos.DoctorDTO;
 import ds2020.assignment1.dtos.builders.DoctorBuilder;
+import ds2020.assignment1.entities.Account;
 import ds2020.assignment1.entities.Doctor;
 import ds2020.assignment1.repositories.AccountRepository;
 import ds2020.assignment1.repositories.DoctorRepository;
@@ -23,6 +24,15 @@ public class DoctorService {
     public DoctorService(DoctorRepository doctorRepository, AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
         this.doctorRepository = doctorRepository;
+    }
+
+
+    public UUID insertDoctor(DoctorDTO doctorDTO) {
+        Doctor doctor = DoctorBuilder.toDoctorEntity(doctorDTO);
+        Account account = doctor.getAccount();
+        accountRepository.save(account);
+        doctor = doctorRepository.save(doctor);
+        return doctor.getId();
     }
 
     public DoctorDTO findDoctorByAccountId(UUID accountId) {

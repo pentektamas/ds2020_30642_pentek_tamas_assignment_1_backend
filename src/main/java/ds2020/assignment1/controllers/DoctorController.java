@@ -40,6 +40,13 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
+    @PostMapping(value = "/insert")
+    public ResponseEntity<UUID> insertDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
+        doctorDTO.getAccount().setAccountType(AccountType.DOCTOR);
+        UUID doctorID = doctorService.insertDoctor(doctorDTO);
+        return new ResponseEntity<>(doctorID, HttpStatus.CREATED);
+    }
+
     @GetMapping(value = "/patients")
     public ResponseEntity<List<PatientDTO>> getPatients() {
         List<PatientDTO> dtos = patientService.findPatients();
