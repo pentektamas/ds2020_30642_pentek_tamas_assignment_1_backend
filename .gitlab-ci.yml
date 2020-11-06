@@ -16,9 +16,7 @@ test:
     script:
     - echo "Test DEMO app"
     - mvn test && mvn jacoco:report
-    - cat target/site/jacoco/index.html | grep -o '.*'
     coverage: "/Total.*?([0-9]{1,3})%/"
-
 
 checkstyle:
     stage: checkstyle
@@ -28,19 +26,20 @@ checkstyle:
     - mvn checkstyle:check
 
 variables:
-    DB_IP: ec2-52-48-65-240.eu-west-1.compute.amazonaws.com
+    DB_IP: ec2-54-246-87-132.eu-west-1.compute.amazonaws.com
     DB_PORT: 5432
-    DB_USER: wlryktxyqpyomt
-    DB_PASSWORD: bee98a2afc7f0c3bcdd7df60ee7278ec5fa5cb4fb06a4039b1ffb1107d5851fd
-    DB_DBNAME: devidei2vqv0v4
+    DB_USER: caoehisfixcqza
+    DB_PASSWORD: 66c71f99bc2ffcc679a2549b61fbaf6b8814a53a32d394db69fa8b155c03eca5
+    DB_DBNAME: dck0reldum0s1r
     
 deploy:
   stage: deploy
-  image: ruby:2.3
+  image: ruby:2.4
   script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=spring-demo-ds2020 --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=springappbackenddemo --api-key=$HEROKU_API_KEY
   only:
     - production
+

@@ -14,7 +14,7 @@ public class DoctorBuilder {
         return new DoctorDTO(doctor.getId(), doctor.getAccount());
     }
 
-    public static Doctor toDoctorEntity(Doctor doctorDTO) {
+    public static Doctor toDoctorEntity(DoctorDTO doctorDTO) {
         return new Doctor(doctorDTO.getId(), doctorDTO.getAccount());
     }
 }
