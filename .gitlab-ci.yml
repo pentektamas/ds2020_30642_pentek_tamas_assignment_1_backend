@@ -24,3 +24,21 @@ checkstyle:
     - echo "Checkstyle DEMO app"
     - mvn checkstyle:check
 
+variables:
+    DB_IP: ec2-52-48-65-240.eu-west-1.compute.amazonaws.com
+    DB_PORT: 5432
+    DB_USER: wlryktxyqpyomt
+    DB_PASSWORD: bee98a2afc7f0c3bcdd7df60ee7278ec5fa5cb4fb06a4039b1ffb1107d5851fd
+    DB_DBNAME: devidei2vqv0v4
+    
+deploy:
+  stage: deploy
+  image: ruby:2.3
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=springappbackenddemo --api-key=$HEROKU_API_KEY
+  only:
+    - production
+
